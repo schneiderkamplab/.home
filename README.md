@@ -33,7 +33,7 @@ If you have ideas what other configuration options .home.sh should support, just
 One thing that comes to my mind when thinking about it would be to have a “run” config option, where one can specify an arbitrary command. A bit like setting a batch script from one of the drives but with the ability to pass an arbitrary script (without shebang, it will be a bash script – with a shebang anything you want).
 Example 1 (just some bash):
 ```json
-    {"run": "cd /work/data; conda activate cc; dolma -c mix.yaml mix"}
+    {"run": ". ~/miniconda3/etc/profile.d/conda.sh; conda activate dolma; cd /work/drive; dolma -c mix.yaml mix"}
 ```
 Example 2 (
 ```json

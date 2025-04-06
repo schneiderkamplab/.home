@@ -3,8 +3,10 @@ INIT_VAR=$(jq -r '.request.parameters.x_var.value' /work/JobParameters.json)
 if [[ "$INIT_VAR" == "null" ]]
 then
     INIT_HOME="null"
+    INIT_RUN="null"
 else
     INIT_HOME=$(jq -r '.request.parameters.x_var.value | fromjson | .home' /work/JobParameters.json)
+    INIT_RUN=$(jq -r '.request.parameters.x_var.value | fromjson | .run' /work/JobParameters.json)
 fi
 if [[ "$INIT_HOME" == "null" ]]
 then
@@ -44,4 +46,15 @@ then
 else
     echo 'INFO -- no home directory given - use {"home": "/work/XYZ/home"} to use /work/XYZ/home as your home directory.'
 fi
-
+if [[ "$INIT_RUN" != "null" ]]
+then
+    source ~/.bashrc
+    tmpfile=$(mktemp)
+    trap "rm -f '$tmpfile'" EXIT
+    echo -e "$INIT_RUN" > "$tmpfile"
+    echo "Wrote the following script to ${tmpfile}:"
+    cat "$tmpfile"
+    chmod u+x "$tmpfile"
+    echo "Executing $tmpfile:"
+    "$tmpfile"
+fi
