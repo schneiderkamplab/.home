@@ -22,14 +22,14 @@ For example, if you mount the “drive” drive, set “.home.sh” as your init
     miniconda3 -> /work/drive/.home/miniconda3
 ```
 Files that are NOT found in /work/drive/.home are left untouched. So, if you want to persist another file or directory, just move it to /work/drive/.home and make a symbolic link to it in your home directory. “.home.sh” will ensure that the same symbolic link is made next time you start an app instance.
- 
+
 If you mount multiple drives with “.home” folders or want to specify a different folder, you can pass a json config as “Extra options”. For setting “/work/somedrive/somedirectory” as your persistent home directory, you simply pass the following string:
 ```json
     {"home": "/work/somedrive/somedirectory"}
 ```
 
 If you have ideas what other configuration options .home.sh should support, just let me know. Note that things like source conda.sh etc. can be done from a persistent .bashrc.
- 
+
 One thing that comes to my mind when thinking about it would be to have a “run” config option, where one can specify an arbitrary command. A bit like setting a batch script from one of the drives but with the ability to pass an arbitrary script (without shebang, it will be a bash script – with a shebang anything you want).
 Example 1 (just some bash):
 ```json
